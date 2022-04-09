@@ -1,0 +1,30 @@
+{
+  "name": "repluggable",
+  "version": "1.0.0",
+  "description": "Pluggable micro frontends.",
+  "keywords": [
+    "framework",
+    "typescript",
+    "frontend",
+    "dependency-injection",
+    "inversion-of-control",
+    "micro-frontends"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "vtest"
+  },
+  "author": "nooooooom",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nooooooom/repluggable.git"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.181",
+    "tsup": "^5.12.4"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "esnext",
+    "lib": ["esnext", "DOM"],
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "skipDefaultLibCheck": true,
+    "paths": {
+      "repluggable": ["./packages/unocss/src/index.ts"],
+      "@repluggable/core": ["./packages/core/src/index.ts"]
+    }
+  },
+  "include": ["packages"],
+  "exclude": ["**/dist/**", "**/node_modules/**", "**/**/*.md"]
+}
