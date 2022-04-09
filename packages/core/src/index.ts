@@ -6,7 +6,8 @@ export {
   AppHostOptions,
   Shell,
   APIKey,
-  APILayer
+  APILayer,
+  SlotKey
 } from './types/appHost'
 export { ExtensionSlot, ExtensionItem } from './types/extensionSlot'
 

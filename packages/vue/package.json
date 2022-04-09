@@ -1,5 +1,5 @@
 {
-  "name": "@repluggable/core",
+  "name": "@repluggable/vue",
   "version": "1.0.0",
   "description": "Pluggable micro frontends.",
   "keywords": [

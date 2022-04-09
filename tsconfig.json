@@ -10,10 +10,9 @@
     "resolveJsonModule": true,
     "skipDefaultLibCheck": true,
     "paths": {
-      "repluggable": ["./packages/unocss/src/index.ts"],
+      "repluggable": ["./packages/core/src/index.ts"],
       "@repluggable/core": ["./packages/core/src/index.ts"]
     }
   },
-  "include": ["packages"],
   "exclude": ["**/dist/**", "**/node_modules/**", "**/**/*.md"]
 }
