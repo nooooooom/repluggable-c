@@ -1,5 +1,6 @@
-import { Shell, SlotKey } from 'repluggable'
-import { VueComponentContributor } from '@repluggable/vue'
+import type { Shell, SlotKey } from 'repluggable'
+import { createReactiveSlotHandler } from '@repluggable/vue'
+import type { VueComponentContributor } from '@repluggable/vue'
 
 export interface ContributedComponent {
   component: VueComponentContributor
@@ -22,7 +23,10 @@ export const MainViewAPIKey: SlotKey<MainViewAPI> = {
 }
 
 export const createMainViewAPI = (shell: Shell): MainViewAPI => {
-  const componentsSlot = shell.declareSlot(componentsSlotKey)
+  const componentsSlot = shell.declareCustomSlot(
+    componentsSlotKey,
+    createReactiveSlotHandler()
+  )
 
   return {
     contributeComponent(fromShell, contribution) {
