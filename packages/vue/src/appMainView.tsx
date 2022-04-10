@@ -17,7 +17,7 @@ export const AppMainViewAPIKey: SlotKey<AppMainViewAPI> = {
   public: true
 }
 
-export const AppMainViewSlotKey: SlotKey<VueComponentContributor> = {
+const AppMainViewSlotKey: SlotKey<VueComponentContributor> = {
   name: 'AppMainViewSlot'
 }
 

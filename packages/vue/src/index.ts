@@ -11,7 +11,15 @@ export {
   ShellRenderer,
   VueComponentContributor,
   SlotRendererProps,
-  SlotRenderer
+  SlotRenderer,
+  useExtensionSlotItems
 } from './renderSlotComponents'
 
 export { BoundaryAspectsSlotKey } from './shellBoundaryAspect'
+
+export {
+  ReactiveSlotHandler,
+  ReactiveSlot,
+  isReactiveSlot,
+  createReactiveSlotHandler
+} from './reactiveSlot'

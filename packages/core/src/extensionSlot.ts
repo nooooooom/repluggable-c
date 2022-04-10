@@ -1,6 +1,8 @@
 import _ from 'lodash'
 import type { Shell, SlotKey } from './types/appHost'
 import type {
+  CustomExtensionSlot,
+  CustomExtensionSlotHandler,
   ExtensionItem,
   ExtensionItemFilter,
   ExtensionItemsChangedCallback,
@@ -44,14 +46,11 @@ export function createExtensionSlot<T>(
     return items.find((item) => item.name === name && item.condition())
   }
 
-  const discardItemBy: ExtensionSlot<T>['discardItemBy'] = (
+  const discardBy: ExtensionSlot<T>['discardBy'] = (
     predicate: ExtensionItemFilter<T>
   ) => {
-    const index = items.findIndex((item) => !predicate(item))
-    if (index !== -1) {
-      items.splice(index, 1)
-      executeItemsChangedCallbacks()
-    }
+    _.remove(items, predicate)
+    executeItemsChangedCallbacks()
   }
 
   const executeItemsChangedCallbacks = () => {
@@ -75,8 +74,23 @@ export function createExtensionSlot<T>(
     getItems,
     getSingleItem,
     getItemByName,
-    discardItemBy,
+    discardBy,
     onItemsChanged,
     removeItemsChangedCallback
+  }
+}
+
+export function createCustomExtensionSlot<
+  T,
+  Handler extends CustomExtensionSlotHandler<T> = CustomExtensionSlotHandler<T>
+>(
+  key: SlotKey<T>,
+  handler: Handler,
+  declaringShell?: Shell
+): CustomExtensionSlot<T> & Handler {
+  return {
+    ...handler,
+    name: key.name,
+    declaringShell
   }
 }

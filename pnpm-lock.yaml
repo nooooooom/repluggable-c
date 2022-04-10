@@ -7,6 +7,7 @@ importers:
       '@types/lodash': ^4.14.181
       '@types/node': ^17.0.23
       lodash: ^4.17.21
+      rimraf: ^3.0.2
       ts-node: ^10.7.0
       tsup: ^5.12.4
       typescript: ^4.6.3
@@ -17,6 +18,7 @@ importers:
     devDependencies:
       '@types/lodash': 4.14.181
       '@types/node': 17.0.23
+      rimraf: 3.0.2
       ts-node: 10.7.0_ee885bc7281b682b6adbed6ae09ee090
       tsup: 5.12.4_ts-node@10.7.0+typescript@4.6.3
       typescript: 4.6.3
@@ -1419,6 +1421,13 @@ packages:
   /reusify/1.0.4:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
+    dev: true
+
+  /rimraf/3.0.2:
+    resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
+    hasBin: true
+    dependencies:
+      glob: 7.1.6
     dev: true
 
   /rollup/2.70.1:

@@ -15,6 +15,7 @@ import type { PropType, ExtractPropTypes } from 'vue-demi'
 import _ from 'lodash'
 import { renderWithAspects } from './shellBoundaryAspect'
 import type { Container, VueNode } from './shellBoundaryAspect'
+import { isReactiveSlot, ReactiveSlot } from './reactiveSlot'
 
 export const ShellInjectionKey = Symbol('ShellInjectionKey') as InjectionKey<{
   shellRef: Ref<Shell>
@@ -42,6 +43,24 @@ const createFragment = (container?: Container): Container => {
   return (isVue2 ? container || 'div' : Vue.Fragment) as Container
 }
 
+export const useExtensionSlotItems = (
+  slot: ExtensionSlot<any> | ReactiveSlot<any>
+) => {
+  if (isReactiveSlot(slot)) {
+    return slot.getComputedItems()
+  }
+  const itemsRef = ref(slot.getItems())
+
+  const handleItemChange = () => {
+    itemsRef.value = slot.getItems()
+  }
+  slot.onItemsChanged(handleItemChange)
+
+  onUnmounted(() => slot.removeItemsChangedCallback(handleItemChange))
+
+  return itemsRef
+}
+
 export type VueComponentContributor = () => VueNode
 
 const slotRendererProps = {
@@ -65,20 +84,8 @@ export type SlotRendererProps = ExtractPropTypes<typeof slotRendererProps>
 export const SlotRenderer = defineComponent({
   props: slotRendererProps,
   setup(props) {
-    const itemsRef = ref(props.extensionSlot.getItems())
-
-    const handleItemChange = () => {
-      itemsRef.value = props.extensionSlot.getItems()
-    }
-
-    props.extensionSlot.onItemsChanged(handleItemChange)
-
-    onUnmounted(() =>
-      props.extensionSlot.removeItemsChangedCallback(handleItemChange)
-    )
-
     return {
-      items: itemsRef
+      items: useExtensionSlotItems(props.extensionSlot)
     }
   },
   render() {

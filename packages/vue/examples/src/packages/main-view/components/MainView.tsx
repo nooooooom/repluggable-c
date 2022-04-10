@@ -1,7 +1,8 @@
 import { SlotRenderer } from '@repluggable/vue'
-import { ExtensionSlot } from 'repluggable'
-import { defineComponent, PropType } from 'vue-demi'
-import { ContributedComponent } from '../mainViewAPI'
+import type { ExtensionSlot } from 'repluggable'
+import { defineComponent } from 'vue-demi'
+import type { PropType } from 'vue-demi'
+import type { ContributedComponent } from '../mainViewAPI'
 
 const slotItemToComp = ({ component }: ContributedComponent) => component
 

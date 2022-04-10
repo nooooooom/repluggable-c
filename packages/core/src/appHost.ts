@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { createExtensionSlot } from './extensionSlot'
+import { createCustomExtensionSlot, createExtensionSlot } from './extensionSlot'
 import { invokeEntryPointPhase } from './invokeShell'
 import { Graph, Tarjan } from './tarjanGraph'
 import type {
@@ -9,9 +9,16 @@ import type {
   EntryPoint,
   EntryPointOrPackage,
   PrivateShell,
+  Shell,
   SlotKey
 } from './types/appHost'
-import type { ExtensionItem, ExtensionSlot } from './types/extensionSlot'
+import type {
+  AnyExtensionSlot,
+  CustomExtensionSlot,
+  CustomExtensionSlotHandler,
+  ExtensionItem,
+  ExtensionSlot
+} from './types/extensionSlot'
 import { declaredAPIs, dependentAPIs } from './appHostUtils'
 
 const isMultiArray = <T>(v: T[] | T[][]): v is T[][] => _.every(v, _.isArray)
@@ -100,7 +107,7 @@ export function createAppHost(
 
   const uniqueShellNames = new Set<string>()
   const slotKeysByName = new Map<string, APIKey>()
-  const extensionSlots = new Map<APIKey, ExtensionSlot>()
+  const extensionSlots = new Map<APIKey, AnyExtensionSlot>()
 
   const addedShells = new Map<string, PrivateShell>()
   const shellInstallers = new WeakMap<PrivateShell, string[]>()
@@ -317,7 +324,7 @@ export function createAppHost(
     )
 
     extensionSlots.forEach((extensionSlot) =>
-      extensionSlot.discardItemBy((extensionItem) =>
+      extensionSlot.discardBy((extensionItem) =>
         doesExtensionItemBelongToShells(extensionItem, detachedShellsNames)
       )
     )
@@ -407,12 +414,23 @@ export function createAppHost(
     return _findDependantShells(shell)
   }
 
-  const declareSlot = <T>(
-    key: SlotKey<T>,
-    declaringShell?: PrivateShell
-  ): ExtensionSlot<T> => {
+  const declareSlot = <TItem>(
+    key: SlotKey<TItem>,
+    declaringShell?: Shell
+  ): ExtensionSlot<TItem> => {
     const newSlot = registerSlotOrThrow(key, () =>
       createExtensionSlot(key, declaringShell)
+    )
+    return newSlot
+  }
+
+  const declareCustomSlot = <TItem>(
+    key: SlotKey<TItem>,
+    handler: CustomExtensionSlotHandler<TItem>,
+    declaringShell?: Shell
+  ): CustomExtensionSlot<TItem> => {
+    const newSlot = registerSlotOrThrow(key, () =>
+      createCustomExtensionSlot(key, handler, declaringShell)
     )
     return newSlot
   }
@@ -421,7 +439,7 @@ export function createAppHost(
     return key.version === undefined ? key.name : `${key.name}(v${key.version})`
   }
 
-  const registerSlotOrThrow = <TItem, TSlot extends ExtensionSlot>(
+  const registerSlotOrThrow = <TItem, TSlot extends AnyExtensionSlot>(
     key: SlotKey<TItem>,
     factory: () => TSlot
   ): TSlot => {
@@ -561,15 +579,18 @@ export function createAppHost(
         return removeShells(names)
       },
 
-      hasSlot: <T>(key: SlotKey<T>): boolean => {
-        const slot = getSlot(key)
-        const { declaringShell } = slot
-        return Boolean(declaringShell && declaringShell !== shell)
+      declareSlot: <TItem>(key: SlotKey<TItem>): ExtensionSlot<TItem> => {
+        return declareSlot<TItem>(key, shell)
       },
-      declareSlot: <T>(key: SlotKey<T>): ExtensionSlot<T> => {
-        return declareSlot<T>(key, shell)
+
+      declareCustomSlot<TItem>(
+        key: SlotKey<TItem>,
+        handler: CustomExtensionSlotHandler<TItem>
+      ): CustomExtensionSlot<TItem> {
+        return declareCustomSlot<TItem>(key, handler, shell)
       },
-      getSlot: <T>(key: SlotKey<T>): ExtensionSlot<T> => {
+
+      getSlot: <TItem>(key: SlotKey<TItem>): ExtensionSlot<TItem> => {
         const slot = getSlot(key)
         const { declaringShell } = slot
         if (!declaringShell || declaringShell !== shell) {
@@ -584,6 +605,17 @@ export function createAppHost(
           )
         }
         return slot
+      },
+
+      getSchrodingerSlot: <TItem>(
+        key: SlotKey<TItem>
+      ): ExtensionSlot<TItem> | undefined => {
+        try {
+          const slot = getSlot(key)
+          if (slot.declaringShell === shell) {
+            return slot
+          }
+        } catch (error) {}
       },
 
       getAPI: <T>(key: SlotKey<T>): T => {

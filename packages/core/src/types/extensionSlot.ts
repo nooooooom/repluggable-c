@@ -1,4 +1,4 @@
-import { ContributionPredicate, Shell } from './appHost'
+import type { ContributionPredicate, Shell } from './appHost'
 
 export type ExtensionItemFilter<T> = (
   extensionItem: ExtensionItem<T>
@@ -8,22 +8,8 @@ export type ExtensionItemsChangedCallback<T> = (
   extensionItems: ExtensionItem<T>[]
 ) => void
 
-/**
- * A slot/container for holding any contribution of shape T
- * Access to the slot is scoped to the {Shell}
- *
- * @export
- * @interface ExtensionSlot
- * @template T
- */
-export interface ExtensionSlot<T = any> {
-  /**
-   * a unique identifier for the slot
-   */
+export interface AnyExtensionSlot<T = any> {
   readonly name: string
-  /**
-   * Which {Shell} owns this slot
-   */
   readonly declaringShell?: Shell
   /**
    * Add an item to the slot
@@ -32,7 +18,32 @@ export interface ExtensionSlot<T = any> {
    * @param {T} item Extension item to be added to the slot
    * @param {ContributionPredicate} [condition] A predicate to condition the retrieval of the item when slot items are requested with {ExtensionSlot<T>.getItems}
    */
-  contribute(shell: Shell, item: T, condition?: ContributionPredicate): void
+  contribute(fromShell: Shell, item: T, condition?: ContributionPredicate): void
+  /**
+   * Remove items from the slot by predicate
+   *
+   * @param {ExtensionItemFilter<T> | undefined} predicate Remove all items matching this predicate
+   */
+  discardBy(predicate: ExtensionItemFilter<T>): void
+}
+
+/**
+ * A slot/container for holding any contribution of shape T
+ * Access to the slot is scoped to the {Shell}
+ *
+ * @export
+ * @interface ExtensionSlot
+ * @template T
+ */
+export interface ExtensionSlot<T> extends AnyExtensionSlot {
+  /**
+   * a unique identifier for the slot
+   */
+  readonly name: string
+  /**
+   * Which {Shell} owns this slot
+   */
+  readonly declaringShell?: Shell
   /**
    * Get all items contributed to the slot
    *
@@ -53,12 +64,6 @@ export interface ExtensionSlot<T = any> {
    * @return {ExtensionItem<T> | undefined} Extension item
    */
   getItemByName(name: string): ExtensionItem<T> | undefined
-  /**
-   * Remove items from the slot by predicate
-   *
-   * @param {ExtensionItemFilter<T> | undefined} predicate Remove all items matching this predicate
-   */
-  discardItemBy(predicate: ExtensionItemFilter<T>): void
   onItemsChanged(callback: ExtensionItemsChangedCallback<T>): void
   removeItemsChangedCallback(callback: ExtensionItemsChangedCallback<T>): void
 }
@@ -85,4 +90,14 @@ export interface ExtensionItem<T> {
    */
   readonly condition: ContributionPredicate
   readonly uniqueId: string
+}
+
+export interface CustomExtensionSlotHandler<T> {
+  contribute(fromShell: Shell, item: T, condition?: ContributionPredicate): void
+  discardBy(predicate: ExtensionItemFilter<T>): void
+}
+
+export interface CustomExtensionSlot<T> extends AnyExtensionSlot<T> {
+  readonly name: string
+  readonly declaringShell?: Shell
 }

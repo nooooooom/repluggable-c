@@ -9,6 +9,14 @@ export {
   APILayer,
   SlotKey
 } from './types/appHost'
-export { ExtensionSlot, ExtensionItem } from './types/extensionSlot'
+
+export {
+  AnyExtensionSlot,
+  ExtensionSlot,
+  ExtensionItem,
+  ExtensionItemsChangedCallback,
+  CustomExtensionSlot,
+  CustomExtensionSlotHandler
+} from './types/extensionSlot'
 
 export { createAppHost } from './appHost'

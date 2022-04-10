@@ -1,4 +1,8 @@
-import { ExtensionSlot } from './extensionSlot'
+import {
+  CustomExtensionSlot,
+  CustomExtensionSlotHandler,
+  ExtensionSlot
+} from './extensionSlot'
 
 export interface APIKey {
   readonly name: string
@@ -167,14 +171,6 @@ export interface Shell {
    */
   getAPI<T>(key: SlotKey<T>): T
   /**
-   * Does the {Shell} contain a specific {Slot}
-   *
-   * @template TItem
-   * @param {SlotKey<TItem>} key
-   * @return {boolean}
-   */
-  hasSlot<TItem>(key: SlotKey<TItem>): boolean
-  /**
    * Get an extension slot defined on the host
    *
    * @template TItem
@@ -183,6 +179,16 @@ export interface Shell {
    */
   getSlot<TItem>(key: SlotKey<TItem>): ExtensionSlot<TItem>
   /**
+   * Get an extension slot defined on the host
+   *
+   * @template TItem
+   * @param {SlotKey<TItem>} key
+   * @return {ExtensionSlot<TItem>}
+   */
+  getSchrodingerSlot<TItem>(
+    key: SlotKey<TItem>
+  ): ExtensionSlot<TItem> | undefined
+  /**
    * Create an {ExtensionSlot}
    *
    * @template TItem
@@ -190,6 +196,10 @@ export interface Shell {
    * @return {ExtensionSlot<TItem>} Actual slot
    */
   declareSlot<TItem>(key: SlotKey<TItem>): ExtensionSlot<TItem>
+  declareCustomSlot<TItem>(
+    key: SlotKey<TItem>,
+    handler: CustomExtensionSlotHandler<TItem>
+  ): CustomExtensionSlot<TItem>
   /**
    * Contribute an implementation of an API (a.k.a contract)
    *

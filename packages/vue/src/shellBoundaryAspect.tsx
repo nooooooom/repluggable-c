@@ -15,9 +15,7 @@ export const renderWithAspects = (
   component: VueNode,
   aspectIndex: number
 ): VueNode => {
-  const aspects =
-    shell.hasSlot(BoundaryAspectsSlotKey) &&
-    shell.getSlot(BoundaryAspectsSlotKey).getItems()
+  const aspects = shell.getSchrodingerSlot(BoundaryAspectsSlotKey)?.getItems()
 
   if (aspects && aspects.length > aspectIndex) {
     const Aspect = aspects[aspectIndex]
