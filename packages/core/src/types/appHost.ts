@@ -159,6 +159,30 @@ export interface Shell {
    */
   wasInitializationCompleted(): boolean
   /**
+   * Get an implementation of API previously contributed to the {AppHost}
+   *
+   * @template T
+   * @param {SlotKey<T>} key API Key
+   * @return {*}  {T}
+   */
+  getAPI<T>(key: SlotKey<T>): T
+  /**
+   * Does the {Shell} contain a specific {Slot}
+   *
+   * @template TItem
+   * @param {SlotKey<TItem>} key
+   * @return {boolean}
+   */
+  hasSlot<TItem>(key: SlotKey<TItem>): boolean
+  /**
+   * Get an extension slot defined on the host
+   *
+   * @template TItem
+   * @param {SlotKey<TItem>} key
+   * @return {ExtensionSlot<TItem>}
+   */
+  getSlot<TItem>(key: SlotKey<TItem>): ExtensionSlot<TItem>
+  /**
    * Create an {ExtensionSlot}
    *
    * @template TItem
@@ -176,6 +200,20 @@ export interface Shell {
    * @return {TAPI} Result of the factory execution
    */
   contributeAPI<TAPI>(key: SlotKey<TAPI>, factory: () => TAPI): TAPI
+  /**
+   * Dynamically add {Shell}s after the host is created
+   *
+   * @param {EntryPointOrPackage[]} entryPointsOrPackages New packages or entry points to be added to the {AppHost}
+   * @return {Promise<void>}
+   */
+  addShells(entryPointsOrPackages: EntryPointOrPackage[]): void
+  /**
+   * Dynamically remove {Shell}s after the host is created
+   *
+   * @param {string[]} names {Shell} names to be removed
+   * @return {Promise<void>}
+   */
+  removeShells(names: string[]): void
 }
 
 export interface PrivateShell extends Shell {

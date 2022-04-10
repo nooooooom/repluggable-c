@@ -11,13 +11,30 @@
     "micro-frontends"
   ],
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "dev": "cd ./examples & vite"
+  },
   "author": "nooooooom",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nooooooom/repluggable.git"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "@repluggable/core": "workspace:*",
+    "vue": "^3.2.30",
+    "vue-demi": "*",
+    "vue2": "npm:vue@^2.6.14"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/plugin-transform-typescript": "^7.16.8",
+    "@vitejs/plugin-vue": "^2.3.1",
+    "@vitejs/plugin-vue-jsx": "^1.3.9"
+  }
 }

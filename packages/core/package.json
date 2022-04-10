@@ -10,14 +10,23 @@
     "inversion-of-control",
     "micro-frontends"
   ],
-  "main": "index.js",
-  "scripts": {},
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup"
+  },
   "author": "nooooooom",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nooooooom/repluggable.git"
-  },
-  "dependencies": {},
-  "devDependencies": {}
+  }
 }

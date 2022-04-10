@@ -83,7 +83,7 @@ const verifyLayersUniqueness = (layers?: APILayer[] | APILayer[][]) => {
 
 export function createAppHost(
   initialEntryPointsOrPackages: EntryPointOrPackage[],
-  options: AppHostOptions
+  options: AppHostOptions = {}
 ) {
   let canInstallReadyEntryPoints: boolean = true
 
@@ -561,6 +561,14 @@ export function createAppHost(
         return removeShells(names)
       },
 
+      hasSlot: <T>(key: SlotKey<T>): boolean => {
+        const slot = getSlot(key)
+        const { declaringShell } = slot
+        return Boolean(declaringShell && declaringShell !== shell)
+      },
+      declareSlot: <T>(key: SlotKey<T>): ExtensionSlot<T> => {
+        return declareSlot<T>(key, shell)
+      },
       getSlot: <T>(key: SlotKey<T>): ExtensionSlot<T> => {
         const slot = getSlot(key)
         const { declaringShell } = slot
@@ -577,6 +585,7 @@ export function createAppHost(
         }
         return slot
       },
+
       getAPI: <T>(key: SlotKey<T>): T => {
         if (dependencyAPIs.indexOf(key) >= 0 || isOwnContributedAPI(key)) {
           return host.getAPI(key)
@@ -588,9 +597,6 @@ export function createAppHost(
             entryPoint.name
           }' (forgot to return it from getDependencyAPIs?)`
         )
-      },
-      declareSlot: <T>(key: SlotKey<T>): ExtensionSlot<T> => {
-        return declareSlot<T>(key, shell)
       },
       contributeAPI: <T>(key: SlotKey<T>, factory: () => T) => {
         if (!_.includes(_.invoke(entryPoint, 'declareAPIs') || [], key)) {

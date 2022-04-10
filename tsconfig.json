@@ -11,7 +11,8 @@
     "skipDefaultLibCheck": true,
     "paths": {
       "repluggable": ["./packages/core/src/index.ts"],
-      "@repluggable/core": ["./packages/core/src/index.ts"]
+      "@repluggable/core": ["./packages/core/src/index.ts"],
+      "@repluggable/vue": ["./packages/vue/src/index.ts"]
     }
   },
   "exclude": ["**/dist/**", "**/node_modules/**", "**/**/*.md"]
