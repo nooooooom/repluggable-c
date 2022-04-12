@@ -1,6 +1,6 @@
 {
   "name": "@repluggable-c/core",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Pluggable micro frontends.",
   "keywords": [
     "framework",
@@ -29,5 +29,8 @@
     "type": "git",
     "url": "git+https://github.com/nooooooom/repluggable-c.git",
     "directory": "packages/core"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }

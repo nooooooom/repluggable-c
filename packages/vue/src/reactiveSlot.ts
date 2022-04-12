@@ -3,7 +3,7 @@ import {
   AnyExtensionSlot,
   ExtensionItem,
   CustomExtensionSlotHandler
-} from 'repluggable'
+} from '@repluggable-c/core'
 import { ref, computed } from 'vue-demi'
 import type { ComputedRef, Ref } from 'vue-demi'
 

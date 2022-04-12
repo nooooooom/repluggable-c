@@ -1,4 +1,4 @@
-import type { AppHost, EntryPoint, Shell, SlotKey } from 'repluggable'
+import type { AppHost, EntryPoint, Shell, SlotKey } from '@repluggable-c/core'
 import _ from 'lodash'
 import { defineComponent } from 'vue-demi'
 import type { PropType } from 'vue-demi'

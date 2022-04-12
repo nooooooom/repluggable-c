@@ -1,4 +1,4 @@
-import type { ExtensionItem, ExtensionSlot, Shell } from 'repluggable'
+import type { ExtensionItem, ExtensionSlot, Shell } from '@repluggable-c/core'
 import {
   defineComponent,
   h,

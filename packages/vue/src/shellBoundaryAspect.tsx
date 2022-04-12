@@ -1,4 +1,4 @@
-import type { Shell, SlotKey } from 'repluggable'
+import type { Shell, SlotKey } from '@repluggable-c/core'
 import { h } from 'vue-demi'
 import type { VNode } from 'vue-demi'
 

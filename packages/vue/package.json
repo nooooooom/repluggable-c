@@ -1,6 +1,6 @@
 {
   "name": "@repluggable-c/vue",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Pluggable micro frontends.",
   "keywords": [
     "framework",
@@ -22,8 +22,11 @@
     "url": "git+https://github.com/nooooooom/repluggable-c.git",
     "directory": "packages/vue"
   },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
-    "@repluggable/core": "workspace:*",
+    "@repluggable-c/core": "workspace:*",
     "vue": "^3.2.30",
     "vue-demi": "*",
     "vue2": "npm:vue@^2.6.14"

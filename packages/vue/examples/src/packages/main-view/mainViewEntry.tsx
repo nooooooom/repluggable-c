@@ -1,4 +1,4 @@
-import { AppMainViewAPIKey } from '@repluggable/vue'
+import { AppMainViewAPIKey } from '@repluggable-c/vue'
 import type { EntryPoint } from 'repluggable'
 import { MainView } from './components/MainView'
 import {

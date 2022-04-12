@@ -1,4 +1,4 @@
-import { AppMainView, AppMainViewEntryPoint } from '@repluggable/vue'
+import { AppMainView, AppMainViewEntryPoint } from '@repluggable-c/vue'
 import { createAppHost } from 'repluggable'
 import { createApp, defineComponent } from 'vue-demi'
 import { MainViewEntryPoint } from './packages/main-view/mainViewEntry'

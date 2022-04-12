@@ -1,4 +1,4 @@
-import { SlotRenderer } from '@repluggable/vue'
+import { SlotRenderer } from '@repluggable-c/vue'
 import type { ExtensionSlot } from 'repluggable'
 import { defineComponent } from 'vue-demi'
 import type { PropType } from 'vue-demi'
