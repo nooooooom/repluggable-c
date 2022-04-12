@@ -1,5 +1,5 @@
 {
-  "name": "@repluggable/core",
+  "name": "@repluggable-c/core",
   "version": "1.0.0",
   "description": "Pluggable micro frontends.",
   "keywords": [
@@ -27,6 +27,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nooooooom/repluggable.git"
+    "url": "git+https://github.com/nooooooom/repluggable-c.git",
+    "directory": "packages/core"
   }
 }

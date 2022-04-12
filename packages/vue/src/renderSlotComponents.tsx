@@ -93,6 +93,9 @@ export const SlotRenderer = defineComponent({
     const Container = createFragment(this.container)
     return h(
       Container,
+      {
+        ...this.containerProps
+      },
       _.flow(
         _.compact([
           filterFunc &&

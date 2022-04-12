@@ -1,5 +1,5 @@
 {
-  "name": "@repluggable/vue",
+  "name": "@repluggable-c/vue",
   "version": "1.0.0",
   "description": "Pluggable micro frontends.",
   "keywords": [
@@ -10,7 +10,7 @@
     "inversion-of-control",
     "micro-frontends"
   ],
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "dev": "cd ./examples & vite",
     "build": "tsup"
@@ -19,7 +19,8 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nooooooom/repluggable.git"
+    "url": "git+https://github.com/nooooooom/repluggable-c.git",
+    "directory": "packages/vue"
   },
   "dependencies": {
     "@repluggable/core": "workspace:*",

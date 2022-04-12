@@ -4,6 +4,7 @@ import { defineComponent } from 'vue-demi'
 import type { PropType } from 'vue-demi'
 import { SlotRenderer } from './renderSlotComponents'
 import type { VueComponentContributor } from './renderSlotComponents'
+import { createReactiveSlotHandler } from './reactiveSlot'
 
 export interface AppMainViewAPI {
   contributeMainView(
@@ -22,7 +23,10 @@ const AppMainViewSlotKey: SlotKey<VueComponentContributor> = {
 }
 
 const createAppMainViewAPI = (shell: Shell): AppMainViewAPI => {
-  const mainViewSlot = shell.declareSlot(AppMainViewSlotKey)
+  const mainViewSlot = shell.declareCustomSlot(
+    AppMainViewSlotKey,
+    createReactiveSlotHandler()
+  )
 
   return {
     contributeMainView(fromShell, contribution) {

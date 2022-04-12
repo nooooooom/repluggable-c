@@ -1,7 +1,7 @@
 {
-  "name": "repluggable",
+  "name": "repluggable-c",
   "version": "1.0.0",
-  "description": "Pluggable micro frontends.",
+  "description": "Core abstracted version of repluggable, with templates that implement how to work in different front-end frameworks.",
   "keywords": [
     "framework",
     "typescript",
@@ -10,7 +10,6 @@
     "inversion-of-control",
     "micro-frontends"
   ],
-  "main": "index.js",
   "scripts": {
     "build": "rimraf packages/*/dist && pnpm -r run build",
     "test": "vtest"
@@ -19,7 +18,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nooooooom/repluggable.git"
+    "url": "git+https://github.com/nooooooom/repluggable-c.git"
   },
   "dependencies": {
     "lodash": "^4.17.21"
