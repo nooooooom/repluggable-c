@@ -1,7 +1,7 @@
 {
   "name": "@repluggable-c/core",
   "version": "0.0.1",
-  "description": "Pluggable micro frontends.",
+  "description": "Core abstracted version of repluggable, with templates that implement how to work in different front-end frameworks.",
   "keywords": [
     "framework",
     "typescript",

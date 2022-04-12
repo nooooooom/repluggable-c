@@ -1,7 +1,7 @@
 {
   "name": "@repluggable-c/vue",
   "version": "0.0.1",
-  "description": "Pluggable micro frontends.",
+  "description": "The template and component of Repluggable in Vue.",
   "keywords": [
     "framework",
     "typescript",
