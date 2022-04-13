@@ -1,4 +1,4 @@
-import type { Shell, SlotKey } from 'repluggable'
+import type { Shell, SlotKey } from '@repluggable-c/core'
 import { createReactiveSlotHandler } from '@repluggable-c/vue'
 import type { VueComponentContributor } from '@repluggable-c/vue'
 

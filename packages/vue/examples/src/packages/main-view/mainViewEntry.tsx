@@ -1,5 +1,5 @@
 import { AppMainViewAPIKey } from '@repluggable-c/vue'
-import type { EntryPoint } from 'repluggable'
+import type { EntryPoint } from '@repluggable-c/core'
 import { MainView } from './components/MainView'
 import {
   componentsSlotKey,

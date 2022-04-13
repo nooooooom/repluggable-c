@@ -1,5 +1,5 @@
 import type { VueComponentContributor } from '@repluggable-c/vue'
-import type { EntryPoint } from 'repluggable'
+import type { EntryPoint } from '@repluggable-c/core'
 import { MainViewAPIKey } from '../main-view/mainViewAPI'
 import { HelloWorld } from './components/HelloWorld'
 import { Logo } from './components/Logo'

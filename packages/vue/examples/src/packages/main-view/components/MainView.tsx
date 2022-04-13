@@ -1,5 +1,5 @@
 import { SlotRenderer } from '@repluggable-c/vue'
-import type { ExtensionSlot } from 'repluggable'
+import type { ExtensionSlot } from '@repluggable-c/core'
 import { defineComponent } from 'vue-demi'
 import type { PropType } from 'vue-demi'
 import type { ContributedComponent } from '../mainViewAPI'

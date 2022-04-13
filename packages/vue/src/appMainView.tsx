@@ -1,6 +1,6 @@
 import type { AppHost, EntryPoint, Shell, SlotKey } from '@repluggable-c/core'
 import _ from 'lodash'
-import { defineComponent } from 'vue-demi'
+import { defineComponent, h } from 'vue-demi'
 import type { PropType } from 'vue-demi'
 import { SlotRenderer } from './renderSlotComponents'
 import type { VueComponentContributor } from './renderSlotComponents'
@@ -57,11 +57,9 @@ export const AppMainView = defineComponent({
     }
   },
   render() {
-    return (
-      <SlotRenderer
-        extensionSlot={this.host.getSlot(AppMainViewSlotKey)}
-        mapFunc={_.identity}
-      />
-    )
+    return h(SlotRenderer, {
+      extensionSlot: this.host.getSlot(AppMainViewSlotKey),
+      mapFunc: _.identity
+    })
   }
 })

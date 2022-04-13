@@ -49,7 +49,7 @@ export const useExtensionSlotItems = (
   if (isReactiveSlot(slot)) {
     return slot.getComputedItems()
   }
-  
+
   const itemsRef = ref(slot.getItems())
 
   const handleItemChange = () => {
@@ -121,12 +121,10 @@ function createSlotItemToShellRendererMap<T = any>(
     const render = (
       mapFunc ? mapFunc(item.contribution, index) : item.contribution
     ) as VueComponentContributor
-    return (
-      <ShellRenderer
-        shell={item.shell}
-        component={predicateResult ? render() : null}
-        key={item.uniqueId}
-      />
-    )
+    return h(ShellRenderer, {
+      shell: item.shell,
+      component: predicateResult ? render() : null,
+      key: item.uniqueId
+    })
   }
 }
