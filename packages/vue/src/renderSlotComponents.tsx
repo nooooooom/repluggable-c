@@ -1,7 +1,7 @@
 import type { ExtensionItem, ExtensionSlot, Shell } from '@repluggable-c/core'
 import {
   defineComponent,
-  h,
+  h as _h,
   InjectionKey,
   isVue2,
   onUnmounted,
@@ -91,24 +91,30 @@ export const SlotRenderer = defineComponent({
   },
   render() {
     const { mapFunc, filterFunc, sortFunc, items } = this
+    const children = _.flow(
+      _.compact([
+        filterFunc &&
+          ((slotItems: typeof items) =>
+            slotItems.filter((item, index) =>
+              filterFunc(item.contribution, index)
+            )),
+        sortFunc && ((slotItems: typeof items) => slotItems.sort(sortFunc)),
+        (slotItems: typeof items) =>
+          slotItems.map(createSlotItemToShellRendererMap(mapFunc))
+      ])
+    )(items)
+
+    if (children <= 1 && !this.container) {
+      return children[0]
+    }
+
     const Container = createFragment(this.container)
-    return h(
+    return _h(
       Container,
       {
         ...this.containerProps
       },
-      _.flow(
-        _.compact([
-          filterFunc &&
-            ((slotItems: typeof items) =>
-              slotItems.filter((item, index) =>
-                filterFunc(item.contribution, index)
-              )),
-          sortFunc && ((slotItems: typeof items) => slotItems.sort(sortFunc)),
-          (slotItems: typeof items) =>
-            slotItems.map(createSlotItemToShellRendererMap(mapFunc))
-        ])
-      )(items)
+      children
     )
   }
 })
@@ -121,10 +127,12 @@ function createSlotItemToShellRendererMap<T = any>(
     const render = (
       mapFunc ? mapFunc(item.contribution, index) : item.contribution
     ) as VueComponentContributor
-    return h(ShellRenderer, {
-      shell: item.shell,
-      component: predicateResult ? render() : null,
-      key: item.uniqueId
-    })
+    return (
+      <ShellRenderer
+        shell={item.shell}
+        component={predicateResult ? render() : null}
+        key={item.uniqueId}
+      />
+    )
   }
 }
