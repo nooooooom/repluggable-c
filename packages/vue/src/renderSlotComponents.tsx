@@ -49,6 +49,7 @@ export const useExtensionSlotItems = (
   if (isReactiveSlot(slot)) {
     return slot.getComputedItems()
   }
+  
   const itemsRef = ref(slot.getItems())
 
   const handleItemChange = () => {

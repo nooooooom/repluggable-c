@@ -6,6 +6,5 @@ export default defineConfig({
   clean: true,
   format: ['cjs', 'esm'],
   dts: true,
-  entryPoints: ['src/index.ts'],
-  minify: true
+  entryPoints: ['src/index.ts']
 })

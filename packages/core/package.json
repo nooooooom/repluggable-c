@@ -21,7 +21,8 @@
     }
   },
   "scripts": {
-    "build": "tsup"
+    "build": "tsup",
+    "release": "npm run build && pnpm publish"
   },
   "author": "nooooooom",
   "license": "MIT",

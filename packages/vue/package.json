@@ -1,6 +1,6 @@
 {
   "name": "@repluggable-c/vue",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "The template and component of Repluggable in Vue.",
   "keywords": [
     "framework",
@@ -13,7 +13,8 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "cd ./examples & vite",
-    "build": "tsup"
+    "build": "tsup",
+    "release": "pnpm run build && pnpm publish --no-git-checks"
   },
   "author": "nooooooom",
   "license": "MIT",
